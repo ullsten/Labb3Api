@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Labb3ApiWeb.Models.Interest>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Interests</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Created)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Persons.FullName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Persons.FirstName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InterestId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InterestId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InterestId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
