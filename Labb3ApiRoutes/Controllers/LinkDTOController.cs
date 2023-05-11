@@ -37,18 +37,18 @@ namespace Labb3ApiRoutes.Controllers
             try
             {
                 IEnumerable<Link> linkList = await _linkDb.GetAllAsync(includeProperties: "Persons");
-                //var linkList = await _linkDb.GetAllAsync(includeProperties: "Persons");
+              
                 if (!string.IsNullOrWhiteSpace(startsWith))
                 {
                     linkList = linkList.Where(p => p.Persons.FirstName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
-                //var linkDtoList = _mapper.Map<List<LinkDTO>>(linkList);
 
                 var linkDtoList = linkList.Select(l => new LinkDTO
                 {
                     LinkId = l.LinkId,
                     PersonId = l.FK_PersonId,
                     PersonName = l.Persons?.FullName ?? "",
+                    LinkTitle = l.LinkTitle,
                     URL = l.URL,
                 });
 

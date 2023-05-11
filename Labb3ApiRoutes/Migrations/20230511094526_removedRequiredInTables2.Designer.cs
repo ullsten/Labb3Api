@@ -4,6 +4,7 @@ using Labb3ApiRoutes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb3ApiRoutes.Migrations
 {
     [DbContext(typeof(Labb3ApiRouteDbContext))]
-    partial class Labb3ApiRouteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230511094526_removedRequiredInTables2")]
+    partial class removedRequiredInTables2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,6 +4,7 @@ using Labb3ApiRoutes.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb3ApiRoutes.Migrations
 {
     [DbContext(typeof(Labb3ApiRouteDbContext))]
-    partial class Labb3ApiRouteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230511093754_editLinktable")]
+    partial class editLinktable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +59,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 1,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9170),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8818),
                             FK_PersonId = 1,
                             InterestDescription = "Growing and caring for plants",
                             InterestTitle = "Gardening"
@@ -64,7 +67,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 2,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9239),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8862),
                             FK_PersonId = 2,
                             InterestDescription = "Preparing and cooking meals",
                             InterestTitle = "Cooking"
@@ -72,7 +75,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 3,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9245),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8864),
                             FK_PersonId = 3,
                             InterestDescription = "Enjoying books and literature",
                             InterestTitle = "Reading"
@@ -80,7 +83,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 4,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9247),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8866),
                             FK_PersonId = 1,
                             InterestDescription = "Exploring nature by foot",
                             InterestTitle = "Hiking"
@@ -88,7 +91,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 5,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9251),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8867),
                             FK_PersonId = 2,
                             InterestDescription = "Capturing the world through a lens",
                             InterestTitle = "Photography"
@@ -96,7 +99,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 6,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9254),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8869),
                             FK_PersonId = 4,
                             InterestDescription = "Creating art with pencils, pens, or other media",
                             InterestTitle = "Drawing"
@@ -104,7 +107,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 7,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9257),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8871),
                             FK_PersonId = 5,
                             InterestDescription = "Spending time outdoors and sleeping in a tent",
                             InterestTitle = "Camping"
@@ -112,7 +115,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 8,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9260),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8872),
                             FK_PersonId = 6,
                             InterestDescription = "Practicing physical and mental exercises for relaxation and well-being",
                             InterestTitle = "Yoga"
@@ -120,7 +123,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 9,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9263),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8874),
                             FK_PersonId = 7,
                             InterestDescription = "Enjoying the water and getting exercise",
                             InterestTitle = "Swimming"
@@ -128,7 +131,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 10,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9266),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8876),
                             FK_PersonId = 8,
                             InterestDescription = "Exploring new places and cultures",
                             InterestTitle = "Travel"
@@ -136,7 +139,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 11,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9269),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8878),
                             FK_PersonId = 9,
                             InterestDescription = "Playing and watching athletic games",
                             InterestTitle = "Sports"
@@ -144,7 +147,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 12,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9272),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8879),
                             FK_PersonId = 10,
                             InterestDescription = "Listening to and creating music",
                             InterestTitle = "Music"
@@ -152,7 +155,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 13,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9276),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8881),
                             FK_PersonId = 11,
                             InterestDescription = "Moving to music for fun and exercise",
                             InterestTitle = "Dancing"
@@ -160,7 +163,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 14,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9278),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8883),
                             FK_PersonId = 12,
                             InterestDescription = "Playing video or board games",
                             InterestTitle = "Gaming"
@@ -168,7 +171,7 @@ namespace Labb3ApiRoutes.Migrations
                         new
                         {
                             InterestId = 15,
-                            Created = new DateTime(2023, 5, 11, 11, 45, 26, 761, DateTimeKind.Local).AddTicks(9282),
+                            Created = new DateTime(2023, 5, 11, 11, 37, 54, 674, DateTimeKind.Local).AddTicks(8884),
                             FK_PersonId = 13,
                             InterestDescription = "Writing code to create software and websites",
                             InterestTitle = "Programming"

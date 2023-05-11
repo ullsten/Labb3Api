@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using AutoMapper;
 using Labb3ApiRoutes.Data;
 using Labb3ApiRoutes.Models;
@@ -73,14 +74,24 @@ namespace Labb3ApiRoutes.Controllers
                     _apiResponse.ErrorMessages = new List<string> { $"No person found with related links, starting with '{startsWith}'"};
                     return BadRequest(_apiResponse);
                 }
+
                 //check if count value is greater than zero. If it is, items will be limit in answer
-                if(count > 0)
+                if (count > 0)
+                {
+                    interestDTOList = interestDTOList.Take(count).ToList();
+                    _apiResponse.Messages = new List<string> { $"Result limit to {count} of {interestList.Count()}" };
+                }
+                else
+                {
+                    _apiResponse.Messages = new List<string> { $"All {interestDTOList.Count()} items will be displayed" };
+                }
+                //check if count value is greater than zero. If it is, items will be limit in answer
+                if (count > 0)
                 {
                     interestDTOList = interestDTOList.Take(count);
                 }
                 _apiResponse.Result = interestDTOList;
                 _apiResponse.StatusCode = HttpStatusCode.OK;
-                _apiResponse.Messages = new List<string> { $"Result limit to {count} of {interestList.Count()}" };
                 return Ok(_apiResponse);
             }
             catch (Exception ex)

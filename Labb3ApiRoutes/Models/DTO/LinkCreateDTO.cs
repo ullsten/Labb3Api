@@ -8,6 +8,9 @@ namespace Labb3ApiRoutes.Models.DTO
     {
         [Required]
         [StringLength(100)]
+        public string LinkTitle { get; set; }
+        [Required]
+        [StringLength(100)]
         public string URL { get; set; }
         [Required]
         public int FK_InterestId { get; set; }

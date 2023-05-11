@@ -10,7 +10,6 @@ namespace Labb3ApiRoutes.Models
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int LinkId { get; set; }
 
-		[Required]
 		[StringLength(20)]
 		public string LinkTitle { get; set; }
 
@@ -18,12 +17,10 @@ namespace Labb3ApiRoutes.Models
 		[StringLength(100)]
 		public string URL { get; set; }
 
-		[Required]
 		[ForeignKey("Interests")]
 		public int FK_InterestId { get; set; }
 		public Interest Interests { get; set; }
 
-		[Required]
 		[ForeignKey("Persons")]
 		public int FK_PersonId { get; set; }
 		public Person Persons { get; set; }

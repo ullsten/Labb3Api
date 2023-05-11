@@ -12,6 +12,8 @@ namespace Labb3ApiRoutes.Models.DTO
 
         [JsonProperty("Name")]
         public string PersonName { get; set; }
+
+        public string LinkTitle { get; set; }
         [Required]
         [StringLength(100)]
         public string URL { get; set; }   
