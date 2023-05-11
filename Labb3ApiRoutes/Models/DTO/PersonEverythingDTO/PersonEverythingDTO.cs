@@ -21,9 +21,9 @@ namespace Labb3ApiRoutes.Models.DTO.PersonEverythingDTO
         [JsonProperty("Interest description")]
         public string InterestDescription { get; set; }
 
-        [JsonProperty("Link Id")]
+        //[JsonProperty("Link Id")]
         public int FK_LinkId { get; set; }
-        [JsonProperty("Link title")]
+        //[JsonProperty("Link title")]
         public string LinkTitle { get; set; }
         public string URL { get; set; }
     }

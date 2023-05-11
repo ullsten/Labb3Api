@@ -36,11 +36,13 @@ namespace Labb3ApiRoutes.Controllers
         {
             try
             {
-                var linkList = await _linkDb.GetAllAsync(includeProperties: "Persons");
+                IEnumerable<Link> linkList = await _linkDb.GetAllAsync(includeProperties: "Persons");
+                //var linkList = await _linkDb.GetAllAsync(includeProperties: "Persons");
                 if (!string.IsNullOrWhiteSpace(startsWith))
                 {
                     linkList = linkList.Where(p => p.Persons.FirstName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
+                //var linkDtoList = _mapper.Map<List<LinkDTO>>(linkList);
 
                 var linkDtoList = linkList.Select(l => new LinkDTO
                 {
@@ -50,30 +52,39 @@ namespace Labb3ApiRoutes.Controllers
                     URL = l.URL,
                 });
 
-                if(count <0)
+                //check if count value is negative
+                if (count <0)
                 {
                     _apiResponse.IsSuccess = false;
                     _apiResponse.ErrorMessages = new List<string> { $"Count cannont be negative ({count})" };
                     return BadRequest(_apiResponse);
                 }
-                if(count > linkDtoList.Count())
+                //check if count value is bigger then maximum in list
+                if (count > linkList.Count())
                 {
                     _apiResponse.IsSuccess = false;
-                    _apiResponse.ErrorMessages = new List<string> { $"Count exceeds the maximum number of items ({linkDtoList.Count()}" };
+                    _apiResponse.ErrorMessages = new List<string> { $"Count exceeds the maximum number of items ({linkList.Count()}" };
                     return BadRequest(_apiResponse);
                 }
-                if (linkDtoList.Count() == 0)
+                //if no links in linkDtoList - message to answer
+                if (linkList.Count() == 0)
                 {
                     _apiResponse.IsSuccess = false;
                     _apiResponse.ErrorMessages = new List<string> { $"No person found starting with '{startsWith}'" };
                     return BadRequest(_apiResponse);
                 }
 
+                //check if count value is greater than zero. If it is, items will be limit in answer
                 if (count > 0)
                 {
                     linkDtoList = linkDtoList.Take(count).ToList();
+                    _apiResponse.Messages = new List<string> { $"Result limit to {count} of {linkList.Count()}" };
                 }
-               
+                else
+                {
+                    _apiResponse.Messages = new List<string> { $"All {linkDtoList.Count()} items will be displayed" };
+                }
+
                 _apiResponse.Result = linkDtoList.ToList();
                 _apiResponse.StatusCode = HttpStatusCode.OK;
 
@@ -86,7 +97,6 @@ namespace Labb3ApiRoutes.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, _apiResponse);
             }
         }
-
 
         // GET api/<LinkDTOController>/5
         [HttpGet("GetPersonLinksBy{id}", Name = "GetLinkPerson")]

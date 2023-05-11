@@ -31,11 +31,16 @@ namespace Labb3ApiRoutes.Controllers
         [HttpGet("GetAllPersonsInterests")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ApiResponse>> GetPersonInterest()
+        public async Task<ActionResult<ApiResponse>> GetPersonInterest(string startsWith ="", int count = 0)
         {
             try
             {
                 var interestList = await _interestDb.GetAllAsync(includeProperties: "Persons");
+
+                if(!string.IsNullOrEmpty(startsWith))
+                {
+                    interestList = interestList.Where(p => p.Persons.FirstName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
 
                 var interestDTOList = interestList.Select(i => new InterestDTO
                 {
@@ -47,9 +52,35 @@ namespace Labb3ApiRoutes.Controllers
                     Created = i.Created,
 
                 });
-
+                //check if count value is negative
+                if (count < 0)
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"Count can´t be negative ({count})"};
+                    return BadRequest(_apiResponse);
+                }
+                //check if count value is bigger then maximum in list
+                if(count > interestDTOList.Count())
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"Count ({count}) exceeds the maximum number of items ({interestDTOList})" };
+                    return BadRequest(_apiResponse);
+                }
+                //if no links in linkDtoList - message to answer
+                if(interestDTOList.Count() == 0)
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"No person found with related links, starting with '{startsWith}'"};
+                    return BadRequest(_apiResponse);
+                }
+                //check if count value is greater than zero. If it is, items will be limit in answer
+                if(count > 0)
+                {
+                    interestDTOList = interestDTOList.Take(count);
+                }
                 _apiResponse.Result = interestDTOList;
                 _apiResponse.StatusCode = HttpStatusCode.OK;
+                _apiResponse.Messages = new List<string> { $"Result limit to {count} of {interestList.Count()}" };
                 return Ok(_apiResponse);
             }
             catch (Exception ex)

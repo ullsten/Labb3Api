@@ -41,10 +41,12 @@ namespace Labb3ApiRoutes.Controllers
             try
             {
                 IQueryable<Link> query = _context.Links.Include(pe => pe.Persons);
+                //IQueryable<Link> queryLinkTitle = _context.Links.Include(pe => pe.Persons);
 
                 if (includeInterest)
                 {
                     query = query.Include(pe => pe.Interests);
+                    query = query.Include(pe => pe.LinkTitle);
                 }
 
                 var personInterestLinks = await query
@@ -93,11 +95,6 @@ namespace Labb3ApiRoutes.Controllers
             return _apiResponse;
         }
 
-
-
-
-
-
         [HttpGet("GetPersonsFilteredOrNot")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -112,6 +109,7 @@ namespace Labb3ApiRoutes.Controllers
                     personList = personList.Where(p => p.FirstName.StartsWith(startsWith, StringComparison.OrdinalIgnoreCase));
                 }
                 var filteredPersonList = _mapper.Map<List<PersonDTO>>(personList);
+
                 if (filteredPersonList.Count == 0)
                 {
                     _apiResponse.IsSuccess = false;
@@ -119,11 +117,36 @@ namespace Labb3ApiRoutes.Controllers
                         new List<string>() { $"No person found starting with '{startsWith}'." };
                 }
 
+                if (count < 0)
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"Count can´t be negative ({count})" };
+                    return BadRequest(_apiResponse);
+                }
+                //check if count value is bigger then maximum in list
+                if (count > personList.Count())
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"Count ({count}) exceeds the maximum number of items ({personList})" };
+                    return BadRequest(_apiResponse);
+                }
+                // if no persons found in personList - message to answer
+                if (personList.Count() == 0)
+                {
+                    _apiResponse.IsSuccess = false;
+                    _apiResponse.ErrorMessages = new List<string> { $"No person found starting with '{startsWith}'" };
+                    return BadRequest(_apiResponse);
+                }
                 if (count > 0)
                 {
                     personList = personList.Take(count);
+                    _apiResponse.Messages = new List<string> { $"Result limit to {count} of {filteredPersonList.Count()}" };
                 }
-
+                else
+                {
+                    _apiResponse.Messages = new List<string> { $"All {filteredPersonList.Count()} items will be displayed" };
+                }
+               
                 _apiResponse.Result = _mapper.Map<List<PersonDTO>>(personList);
                 _apiResponse.StatusCode = HttpStatusCode.OK;
                 return _apiResponse;
