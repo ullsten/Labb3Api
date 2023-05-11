@@ -36,17 +36,20 @@ namespace Labb3ApiRoutes.Controllers
         [HttpGet("GetAllWithInterestAndLink-With_context")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ApiResponse>> GetAllWithInterestAndLinks(string startswith = "", int count = 0, bool includeInterest = false)
+        public async Task<ActionResult<ApiResponse>> GetAllWithInterestAndLinks(string startswith = "", int count = 0, bool includeInterest = false, bool includeLink = false)
         {
             try
             {
                 IQueryable<Link> query = _context.Links.Include(pe => pe.Persons);
-                //IQueryable<Link> queryLinkTitle = _context.Links.Include(pe => pe.Persons);
+                IQueryable<Link> queryLinkTitle = _context.Links.Include(pe => pe.Persons);
 
                 if (includeInterest)
                 {
                     query = query.Include(pe => pe.Interests);
-                    query = query.Include(pe => pe.LinkTitle);
+                }
+                if(includeLink)
+                {
+                    query = query.Include(pe => pe.Interests.Links);
                 }
 
                 var personInterestLinks = await query
@@ -54,12 +57,12 @@ namespace Labb3ApiRoutes.Controllers
                     {
                         FK_PersonId = pe.Persons.PersonId,
                         PersonName = pe.Persons.FullName,
-                        FK_InterestId = pe.FK_InterestId,
+                        FK_InterestId = includeInterest ? pe.FK_InterestId : 0,
                         InterestTitle = includeInterest ? pe.Interests.InterestTitle : null,
                         InterestDescription = includeInterest ? pe.Interests.InterestDescription : null,
-                        FK_LinkId = pe.LinkId,
-                        LinkTitle = pe.LinkTitle,
-                        URL = pe.URL,
+                        FK_LinkId = includeLink ? pe.LinkId : 0,
+                        LinkTitle = includeLink ? pe.LinkTitle : null,
+                        URL = includeLink ? pe.URL : null,
                     })
                     .ToListAsync();
 

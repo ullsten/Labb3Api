@@ -4,8 +4,8 @@ namespace Labb3ApiRoutes.Models.DTO.PersonEverythingDTO
 {
     public class PersonEverythingDTO
     {
-        [JsonProperty("Person link interst id")]
-        public int PersonLinkInterstDTOId { get; set; }
+        //[JsonProperty("Person link interst id")]
+        //public int PersonLinkInterstDTOId { get; set; }
 
         [JsonProperty("Person Id")]
         public int FK_PersonId { get; set; }
@@ -21,9 +21,9 @@ namespace Labb3ApiRoutes.Models.DTO.PersonEverythingDTO
         [JsonProperty("Interest description")]
         public string InterestDescription { get; set; }
 
-        //[JsonProperty("Link Id")]
+        [JsonProperty("Link Id")]
         public int FK_LinkId { get; set; }
-        //[JsonProperty("Link title")]
+        [JsonProperty("Link title")]
         public string LinkTitle { get; set; }
         public string URL { get; set; }
     }
